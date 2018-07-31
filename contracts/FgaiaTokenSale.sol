@@ -17,12 +17,6 @@ contract FgaiaTokenSale {
         tokenPrice = _tokenPrice;
     }
 
-
-    function multiply(uint x, uint y) internal pure returns (uint z) {
-        require(y == 0 || (z = x * y) / y == x);
-    }
-
-
     function buyTokens(uint256 _numberOfTokens) public payable {
         require(msg.value == multiply(_numberOfTokens, tokenPrice));
         require(tokenContract.balanceOf(this) >= _numberOfTokens);
@@ -33,7 +27,6 @@ contract FgaiaTokenSale {
         Sell(msg.sender, _numberOfTokens);
     }
 
-
     function endSale() public {
         require(msg.sender == admin);
         require(tokenContract.transfer(admin, tokenContract.balanceOf(this)));
@@ -42,4 +35,9 @@ contract FgaiaTokenSale {
         // Just transfer the balance to the admin
         admin.transfer(address(this).balance);
     }
+    
+    function multiply(uint x, uint y) internal pure returns (uint z) {
+        require(y == 0 || (z = x * y) / y == x);
+    }
+
 }
