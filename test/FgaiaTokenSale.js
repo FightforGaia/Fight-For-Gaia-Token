@@ -7,7 +7,7 @@ contract('FgaiaTokenSale', function(accounts) {
   var admin = accounts[0];
   var buyer = accounts[1];
   var tokenPrice = 1000000000000000; // in wei
-  var tokensAvailable = 750000000;
+  var tokensAvailable = 100000000;
   var numberOfTokens;
 
   it('initializes the contract with the correct values', function() {
@@ -56,7 +56,7 @@ contract('FgaiaTokenSale', function(accounts) {
       return tokenSaleInstance.buyTokens(numberOfTokens, { from: buyer, value: 1 });
     }).then(assert.fail).catch(function(error) {
       assert(error.message.indexOf('revert') >= 0, 'msg.value must equal number of tokens in wei');
-      return tokenSaleInstance.buyTokens(800000000, { from: buyer, value: numberOfTokens * tokenPrice })
+      return tokenSaleInstance.buyTokens(900000000, { from: buyer, value: numberOfTokens * tokenPrice })
     }).then(assert.fail).catch(function(error) {
       assert(error.message.indexOf('revert') >= 0, 'cannot purchase more tokens than available');
     });
